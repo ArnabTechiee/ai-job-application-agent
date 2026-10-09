@@ -191,13 +191,13 @@ Only keep entries that actually exist in the repository. If you have not yet cre
 When the image files have been uploaded, these links will display them in the README:
 
 #### Workflow Overview
-![Complete n8n job pipeline](screenshots/workflow-overview.png)
+![Complete n8n job pipeline](screenshots/workflow-overview.jpeg)
 
 #### AI Job-Fit Scoring
-![Structured AI job-fit evaluation](screenshots/job-fit-scoring.png)
+![Structured AI job-fit evaluation](screenshots/job-fit-scoring.jpeg)
 
 #### Job Application Tracker
-![Google Sheets job tracker](screenshots/job-tracker.png)
+![Google Sheets job tracker](screenshots/job-tracker.jpeg)
 
 #### Project Retrieval and Application Drafting
 ![Retrieved project context and generated application messages](screenshots/project-retrieval-and-drafting.png)
