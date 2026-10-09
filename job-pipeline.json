@@ -1,0 +1,1314 @@
+{
+  "name": "B - Job Pipeline",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        -512
+      ],
+      "id": "1bf6b80b-5c35-4e72-89d0-ed6b62620706",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "api_key",
+              "name": "job_id",
+              "value": "=adzuna-{{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "01b57dd5-25b6-4acd-8afd-aeb2ccabcd3b",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "d6e7fe04-480d-46bf-995f-64a33b9f2b8e",
+              "name": "company",
+              "value": "={{ $json.company.display_name }}",
+              "type": "string"
+            },
+            {
+              "id": "394ed211-76b0-44ab-a792-f251b6a310a2",
+              "name": "location",
+              "value": "={{ $json.location.display_name }}",
+              "type": "string"
+            },
+            {
+              "id": "736146f0-4bdc-499e-bef7-c363040f30c2",
+              "name": "url",
+              "value": "={{ $json.redirect_url }}",
+              "type": "string"
+            },
+            {
+              "id": "1a62b3eb-372e-446a-aac3-27a8e246308f",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "edf12669-d50a-4090-a58c-dff25b23b000",
+              "name": "source",
+              "value": "adzuna",
+              "type": "string"
+            },
+            {
+              "id": "2acfab69-6bc3-4395-880a-1aadc94caa53",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -672,
+        -448
+      ],
+      "id": "631984a1-8706-48a2-acd8-021b54e724ad",
+      "name": "Normalize Adzuna"
+    },
+    {
+      "parameters": {
+        "url": "https://remotive.com/api/remote-jobs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "search",
+              "value": "machine learning"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1104,
+        -688
+      ],
+      "id": "b711731b-c67d-4f55-bbd1-b1e21e8241e9",
+      "name": "Fetch Remotive"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "jobs",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -864,
+        -704
+      ],
+      "id": "e227bf68-2219-48ba-8145-af5c7ff22689",
+      "name": "Split Remotive"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6c4c48f2-6433-4c63-ad7d-5e86b3257c10",
+              "name": "job_id",
+              "value": "=remotive-{{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "a9c87e99-de12-4177-9238-18f572639c65",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "134f56db-3485-48bb-914f-64a69a53cbc5",
+              "name": "company",
+              "value": "={{ $json.company_name}}",
+              "type": "string"
+            },
+            {
+              "id": "8e1c3e3c-fc8a-4da9-ba2e-80f1ebfaa543",
+              "name": "location",
+              "value": "={{ $json.candidate_required_location }}",
+              "type": "string"
+            },
+            {
+              "id": "14f3e8ce-58e9-4037-888c-bf4babe4662a",
+              "name": "url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "4fdbefef-a5cb-498b-bc19-64720794b5fb",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "4d180bb2-4bb8-4260-b868-8e9a53fdf723",
+              "name": "source",
+              "value": "remotive",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -640,
+        -688
+      ],
+      "id": "eebe0dc4-c3a1-4b9a-b581-3318a4eaf1b0",
+      "name": "Normalize Remotive"
+    },
+    {
+      "parameters": {
+        "url": "https://api.adzuna.com/v1/api/jobs/in/search/1",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "app_id",
+              "value": "5ba23df2"
+            },
+            {
+              "name": "app_key",
+              "value": "f17c727f416615175a7cb71d68f24e88"
+            },
+            {
+              "name": "what",
+              "value": "machine learning intern"
+            },
+            {
+              "name": "results_per_page",
+              "value": "20"
+            },
+            {
+              "name": "max_days_old",
+              "value": "14"
+            },
+            {
+              "name": "sort_by",
+              "value": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1072,
+        -432
+      ],
+      "id": "4e80f08e-13ab-4692-8106-f69cc3b366b9",
+      "name": "Fetch Adzuna"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        -416
+      ],
+      "id": "962cec3a-0c08-4166-b42f-ff3068a4d428",
+      "name": "Split Adzuna"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -464,
+        -528
+      ],
+      "id": "63694af0-437f-4001-82bc-59f19d78aa44",
+      "name": "Merge Jobs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const strip = (h) => (h || '')\n  .replace(/<[^>]*>/g, ' ')\n  .replace(/&nbsp;|&amp;|&#\\d+;/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst badTitle = /senior|sr\\.|lead|manager|principal|director|staff|head of|architect/i;\nconst badExp = /\\b([3-9]|1\\d)\\+?\\s*(years|yrs)\\b/i;\nconst okRemoteLocation = /worldwide|anywhere|india|asia|apac|global/i;\n\nreturn $input.all()\n  .map(i => ({\n    json: {\n      ...i.json,\n      description: strip(i.json.description).slice(0, 4000),\n    },\n  }))\n  .filter(({ json: j }) => {\n    if (badTitle.test(j.title || '')) return false;\n    if (badExp.test(j.description)) return false;\n    if (j.source === 'remotive' && j.location && !okRemoteLocation.test(j.location)) return false;\n    return true;\n  });"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        -544
+      ],
+      "id": "60288328-7d02-48e2-862b-f5741711616d",
+      "name": "Clean and Filter"
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.job_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        -64,
+        -544
+      ],
+      "id": "4e8a7b4d-8387-4f27-bb28-cc73a2316382",
+      "name": "Remove Duplicates",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "maxItems": 5
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -560
+      ],
+      "id": "bdbddf6d-803d-40e6-9ac3-90229b756b4b",
+      "name": "Limit for Testing",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=JOB TITLE: {{ $json.title }}\nCOMPANY: {{ $json.company }}\nLOCATION: {{ $json.location }}\nSOURCE: {{ $json.source }}\n\nDESCRIPTION:\n{{ $json.description.slice(0, 3000) }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a strict job-fit evaluator for a final-year B.Tech CSE student (2027 batch) specialising in machine learning, reinforcement learning, computer vision and edge AI, who also has full-stack skills (React, Node, Python). They want internships or fresher roles, prefer remote or hybrid, and are targeting Bengaluru, Pune and Hyderabad.  Score the job from 0 to 100: - 90-100: near-perfect match on role, skills and logistics - 70-89: strong match, worth applying - 50-69: partial match, notable gaps - below 50: poor match  Penalise: senior or experienced requirements, on-site roles outside the target cities, non-technical roles, unrelated domains, unpaid or vague roles. If the description is a short snippet, judge mainly from the title and the text available, and don't penalise missing details heavily. Be harsh and honest: most jobs should score below 70.  role_type must be one of: ml, cv, rl, fullstack, other. Keep \"reason\" to one sentence."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        240,
+        -944
+      ],
+      "id": "6eba6c87-a121-47fa-bad6-70c181fb2cc2",
+      "name": "Score Job Fit",
+      "retryOnFail": false,
+      "waitBetweenTries": 3000
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"score\": 75,\n  \"role_type\": \"ml\",\n  \"matched_skills\": [\"python\", \"pytorch\"],\n  \"gaps\": [\"kubernetes\"],\n  \"reason\": \"Strong ML internship match, remote, entry level.\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        -720
+      ],
+      "id": "2d87c073-39f6-48e9-b982-a1586098c341",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        -624
+      ],
+      "id": "92123750-91c6-48e2-8c55-e89aa5dcf570",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "P4IIcA8celNZmk92",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "403e3fc8-4f97-4475-9e54-7eadd4bfbec7",
+              "name": "job_id",
+              "value": "={{ $('Limit for Testing').item.json.job_id }}",
+              "type": "string"
+            },
+            {
+              "id": "70e6172b-b608-49b8-ae47-4f804f6cd6d9",
+              "name": "title",
+              "value": "={{ $('Limit for Testing').item.json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "f02d751e-7280-4b3b-a08e-119ab7937501",
+              "name": "company",
+              "value": "={{ $('Limit for Testing').item.json.company }}",
+              "type": "string"
+            },
+            {
+              "id": "2391895d-d08b-4514-90c8-4559a8329ddd",
+              "name": "location",
+              "value": "={{ $('Limit for Testing').item.json.location }}",
+              "type": "string"
+            },
+            {
+              "id": "e8f8e681-9e68-4653-99a5-d08d3a9b141b",
+              "name": "url",
+              "value": "={{ $('Limit for Testing').item.json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "5a2d386a-5523-46e5-8abd-467fb99d7427",
+              "name": "description",
+              "value": "={{ $('Limit for Testing').item.json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "9acc09d7-4738-4b82-82eb-beca6b1dbeb8",
+              "name": "source",
+              "value": "={{ $('Limit for Testing').item.json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "da4df8df-3e2f-4f65-a089-29e7ce0f7f42",
+              "name": "score",
+              "value": "={{ $json.output.score }}",
+              "type": "string"
+            },
+            {
+              "id": "dc79fc18-8c31-4f8d-85e7-3dee567e0a0e",
+              "name": "role_type",
+              "value": "={{ $json.output.role_type }}",
+              "type": "string"
+            },
+            {
+              "id": "f10d6ce1-cc21-4845-9c40-f1e41ce8ffd5",
+              "name": "matched_skills",
+              "value": "={{ $json.output.matched_skills.join(', ') }}",
+              "type": "string"
+            },
+            {
+              "id": "05fd6dbe-825b-40b5-be83-77369c8e333e",
+              "name": "gaps",
+              "value": "={{ $json.output.gaps.join(', ') }}",
+              "type": "string"
+            },
+            {
+              "id": "5be6da8f-39bf-406b-953d-561f40dbed43",
+              "name": "reason",
+              "value": "={{ $json.output.reason }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        800,
+        -720
+      ],
+      "id": "fc4c4c00-b4b7-4e24-a789-0615842b6b39",
+      "name": "Combine Job and Score"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3ed12de7-dfd0-4ac6-9329-f823073d96f7",
+              "leftValue": "={{ Number($json.score) }}",
+              "rightValue": 70,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        -464
+      ],
+      "id": "d220a1cb-2d51-4f4f-89b9-62b20aff1dfe",
+      "name": "Score >= 70"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1xgahEBbb4y0kS_sMg0kEJ2Sjcj7TjiB5fOYdI8hfB2k",
+          "mode": "list",
+          "cachedResultName": "Job Tracker",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xgahEBbb4y0kS_sMg0kEJ2Sjcj7TjiB5fOYdI8hfB2k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 173751500,
+          "mode": "list",
+          "cachedResultName": "Skipped",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xgahEBbb4y0kS_sMg0kEJ2Sjcj7TjiB5fOYdI8hfB2k/edit#gid=173751500"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "job_id": "={{ $json.job_id }}",
+            "title": "={{ $json.title }}",
+            "company": "={{ $json.company }}",
+            "location": "={{ $json.location }}",
+            "url": "={{ $json.url }}",
+            "source": "={{ $json.source }}",
+            "score": "={{ Number($json.score) }}",
+            "reasons": "={{ $json.reason }}",
+            "status": "skipped"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "job_id",
+              "displayName": "job_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reasons",
+              "displayName": "reasons",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cover_note",
+              "displayName": "cover_note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "linkedin_msg",
+              "displayName": "linkedin_msg",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "followup_date",
+              "displayName": "followup_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1328,
+        -160
+      ],
+      "id": "2f75afee-e04b-4177-8e60-aca25f9b2a43",
+      "name": "Log Skipped",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iuOyhFMTwGczElVW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        992,
+        -208
+      ],
+      "id": "2b853f73-01c4-4d2d-ae06-ca23c03d7cbe",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "mode": "load",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "my-projects",
+          "mode": "list",
+          "cachedResultName": "my-projects"
+        },
+        "prompt": "={{ $json.title }} {{ $json.description.slice(0, 500) }}",
+        "topK": 3,
+        "options": {
+          "pineconeNamespace": "projects"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1296,
+        48
+      ],
+      "id": "c2521d25-656c-425a-88a6-f7d2aecb8017",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "TyUv48LVxJwTz0AY",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        96
+      ],
+      "id": "b7d21637-f87e-4844-89a6-bd8623dff26e",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "P4IIcA8celNZmk92",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const job = $('Loop Over Items').item.json;\n\nconst chunks = $input.all()\n  .map(item => item.json.document?.pageContent ?? item.json.pageContent ?? '')\n  .filter(Boolean);\n\nreturn [\n  {\n    json: {\n      ...job,\n      context: chunks.join('\\n\\n---\\n\\n')\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        -320
+      ],
+      "id": "99d7196b-4b83-48aa-9e81-c65133aaac96",
+      "name": "Build Context"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=ROLE: {{ $json.title }} at {{ $json.company }}\nLOCATION: {{ $json.location }}\n\nWHY IT FITS:\n{{ $json.reason }}\n\nMATCHED SKILLS:\n{{ $json.matched_skills }}\n\nJOB DESCRIPTION:\n{{ $json.description.slice(0, 2500) }}\n\nMY RELEVANT PROJECTS:\n{{ $json.context }}\n\nIMPORTANT WRITING RULES:\n\n- Return only the three requested fields through the structured output format.\n- Never use placeholders such as [Your Name], [Hiring Manager Name], [Company Name], etc.\n- Never write \"I am writing to apply\", \"I am writing to express\", \"passionate\", \"excited to leverage\", or similar generic application language.\n- Do not claim any project, technology, metric, achievement, responsibility, or experience that is not explicitly present in MY RELEVANT PROJECTS.\n- Mention only projects that are actually relevant to this specific job.\n- Do not combine unrelated projects just to make the application sound stronger.\n- If the retrieved project evidence is weak, keep the message shorter rather than inventing details.\n- cover_note must be no more than 170 words and must end with one concrete ask.\n- linkedin_msg must be no more than 280 characters.\n- email_subject must be less than 70 characters.\n- Use \"Arnab\" only if a name is needed; never use [Your Name].",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": []
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1488,
+        -752
+      ],
+      "id": "e7fb6610-f32b-43db-b4cc-128c67bc7eea",
+      "name": "Draft Messages"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"cover_note\": \"Short, specific application note connecting one or two relevant projects to the company's work, ending with a concrete ask.\",\n  \"linkedin_msg\": \"Brief recruiter message under 280 characters.\",\n  \"email_subject\": \"Application: role title - Arnab Mondal\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1872,
+        -304
+      ],
+      "id": "22e72942-6c6b-4518-8fbd-28e3c5fa3348",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        1744,
+        -304
+      ],
+      "id": "55a75422-174e-43e8-95d1-0ca64f78e8c0",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "P4IIcA8celNZmk92",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4b8531a7-c679-442f-a3c7-513963526539",
+              "name": "job_id",
+              "value": "={{ $('Build Context').item.json.job_id }}",
+              "type": "string"
+            },
+            {
+              "id": "00ad5663-1f8d-4642-8e2c-7b00492ffda1",
+              "name": "title",
+              "value": "={{ $('Build Context').item.json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "d1a08f67-9fe4-45f9-9dd3-f1b8116df823",
+              "name": "company",
+              "value": "={{ $('Build Context').item.json.company }}",
+              "type": "string"
+            },
+            {
+              "id": "37c19c11-aa45-40e5-8d57-fba75eaffecf",
+              "name": "location",
+              "value": "={{ $('Build Context').item.json.location }}",
+              "type": "string"
+            },
+            {
+              "id": "0d978540-9edd-4f1d-a963-eadc7663851f",
+              "name": "url",
+              "value": "={{ $('Build Context').item.json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "ad121ca2-fc56-4635-b84c-8aa449f4b318",
+              "name": "source",
+              "value": "={{ $('Build Context').item.json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "bcc6fb4d-f0e1-493f-9f73-52617baa72e5",
+              "name": "score",
+              "value": "={{ $('Build Context').item.json.score }}",
+              "type": "string"
+            },
+            {
+              "id": "b5e2fb5d-58d2-4c17-a2c5-550a216982e2",
+              "name": "reasons",
+              "value": "={{ $('Build Context').item.json.reason }}",
+              "type": "string"
+            },
+            {
+              "id": "a77386fd-1b9c-4bb9-a5be-77f3421f491a",
+              "name": "status",
+              "value": "pending_approval",
+              "type": "string"
+            },
+            {
+              "id": "3442788d-df1f-48cc-8607-31aab17ca12e",
+              "name": "cover_note",
+              "value": "={{ $json.output.cover_note }}",
+              "type": "string"
+            },
+            {
+              "id": "b03cc5e2-a548-4e09-8478-ea52de13f41b",
+              "name": "linkedin_msg",
+              "value": "={{ $json.output.linkedin_msg }}",
+              "type": "string"
+            },
+            {
+              "id": "9b5bbdd8-3114-48d5-a92a-c178124c041a",
+              "name": "email_subject",
+              "value": "={{ $json.output.email_subject }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1904,
+        -720
+      ],
+      "id": "4a2fb90a-95bd-4a43-89fe-c14a91e60a6c",
+      "name": "Prepare Row"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1xgahEBbb4y0kS_sMg0kEJ2Sjcj7TjiB5fOYdI8hfB2k",
+          "mode": "list",
+          "cachedResultName": "Job Tracker",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xgahEBbb4y0kS_sMg0kEJ2Sjcj7TjiB5fOYdI8hfB2k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Jobs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xgahEBbb4y0kS_sMg0kEJ2Sjcj7TjiB5fOYdI8hfB2k/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "job_id": "={{ $json.job_id }}",
+            "title": "={{ $json.title }}",
+            "company": "={{ $json.company }}",
+            "location": "={{ $json.location }}",
+            "url": "={{ $json.url }}",
+            "source": "={{ $json.source }}",
+            "score": "={{ $json.score }}",
+            "reasons": "={{ $json.reasons }}",
+            "status": "={{ $json.status }}",
+            "cover_note": "={{ $json.cover_note }}",
+            "linkedin_msg": "={{ $json.linkedin_msg }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "job_id",
+              "displayName": "job_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reasons",
+              "displayName": "reasons",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cover_note",
+              "displayName": "cover_note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "linkedin_msg",
+              "displayName": "linkedin_msg",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "followup_date",
+              "displayName": "followup_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2192,
+        256
+      ],
+      "id": "d89eaa34-501f-4541-b7d4-6fd4b06954b2",
+      "name": "Save to Tracker",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iuOyhFMTwGczElVW",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Fetch Remotive",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Adzuna",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Remotive": {
+      "main": [
+        [
+          {
+            "node": "Split Remotive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Remotive": {
+      "main": [
+        [
+          {
+            "node": "Normalize Remotive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Adzuna": {
+      "main": [
+        [
+          {
+            "node": "Split Adzuna",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Adzuna": {
+      "main": [
+        [
+          {
+            "node": "Normalize Adzuna",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Remotive": {
+      "main": [
+        [
+          {
+            "node": "Merge Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Adzuna": {
+      "main": [
+        [
+          {
+            "node": "Merge Jobs",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Jobs": {
+      "main": [
+        [
+          {
+            "node": "Clean and Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean and Filter": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Limit for Testing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit for Testing": {
+      "main": [
+        [
+          {
+            "node": "Score Job Fit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Score Job Fit",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Score Job Fit",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score Job Fit": {
+      "main": [
+        [
+          {
+            "node": "Combine Job and Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Job and Score": {
+      "main": [
+        [
+          {
+            "node": "Score >= 70",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score >= 70": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Skipped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Build Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Context": {
+      "main": [
+        [
+          {
+            "node": "Draft Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Draft Messages",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Draft Messages",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Draft Messages": {
+      "main": [
+        [
+          {
+            "node": "Prepare Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Row": {
+      "main": [
+        [
+          {
+            "node": "Save to Tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Tracker": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "93855b17-5754-4941-a49b-55c91c62bfdd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4c51c0e5e1a8a1245786901d3115a6f85dd6019fc674b2c7d5f2ff9755fdbacb"
+  },
+  "nodeGroups": [],
+  "id": "VWCXQWxaBcSM29GC",
+  "tags": []
+}

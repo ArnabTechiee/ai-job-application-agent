@@ -1,0 +1,158 @@
+{
+  "name": "A - Ingest Projects",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -48
+      ],
+      "id": "88690414-4b8d-4b1e-80b6-7c4858607acc",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "const projects = [\n  {\n    name: \"HALO-FL-Scheduler\",\n    text: `Project: HALO-FL-Scheduler\nDomain: federated learning, distributed systems, fault tolerance, adaptive scheduling\n\nProblem: Federated learning requires coordinating multiple devices that can have different capacities and may disconnect during training. HALO-FL-Scheduler addresses adaptive participant scheduling and fault tolerance in a Flower-based federated learning environment.\n\nStack: Python, Flower, Federated Learning, Tailscale, telemetry, adaptive scheduling.\n\nWhat I built: I implemented an adaptive federated learning scheduler using capacity scoring to select and assign participating devices. I also implemented a telemetry agent for collecting device information, fault-tolerant dropout recovery using stable device identities, and a live monitoring dashboard. I tested the scheduler across multiple laptops and deployed it across machines connected through a Tailscale network.\n\nResult: Successfully verified adaptive scheduling and dropout recovery across multiple machines; no formal benchmark yet.\n\nRelevant for roles in: federated learning, machine learning engineering, distributed systems, Python backend, AI infrastructure, edge AI.`\n  },\n\n  {\n    name: \"Chetna / Safe Sphere\",\n    text: `Project: Chetna / Safe Sphere\nDomain: edge AI, healthcare technology, computer vision, sensor fusion, mobile AI\n\nProblem: Elderly and vulnerable users may require rapid assistance during falls or environmental hazards, including situations where internet connectivity is unavailable. The system focuses on offline-first detection and emergency assistance.\n\nStack: TensorFlow Lite, 1D-CNN, Gemini API, Firebase, sensor fusion, NLP, mobile application development.\n\nWhat I built: I designed an offline-first edge AI system for fall detection using a TensorFlow Lite 1D-CNN model. I integrated environmental signals including light, noise, air quality and temperature for proactive risk analysis, and designed a multimodal emergency protocol involving SOS activation and caregiver monitoring. The system also includes a Firebase-based caregiver dashboard and a voice-activated emergency trigger.\n\nResult: The fall detection model achieved 94% classification accuracy with sub-50ms local inference latency in the project evaluation.\n\nRelevant for roles in: edge AI, machine learning, TensorFlow, TensorFlow Lite, computer vision, mobile AI, healthcare AI, sensor fusion.`\n  },\n\n  {\n    name: \"Emotion-based Music Playlist System\",\n    text: `Project: Emotion-based Music Playlist System\nDomain: computer vision, facial emotion recognition, recommendation systems\n\nProblem: Traditional music selection does not account for the user's current emotional state. This project uses facial expression analysis to identify emotions and use them to drive music selection.\n\nStack: Python, Flask, DeepFace, OpenCV, HTML, CSS, JavaScript.\n\nWhat I built: I developed a system that uses DeepFace-based facial emotion recognition to analyze a user's detected emotional state. I integrated the emotion detection functionality with a Flask backend and web interface to create an emotion-driven music experience.\n\nResult: Functional prototype developed; no formal benchmark yet.\n\nRelevant for roles in: computer vision, deep learning, Python, Flask, OpenCV, facial analysis, AI applications.`\n  },\n\n  {\n    name: \"Disease Diagnosis Chatbot\",\n    text: `Project: Disease Diagnosis Chatbot\nDomain: NLP, semantic search, machine learning, healthcare AI\n\nProblem: Users may need an accessible way to describe symptoms and retrieve information related to possible diseases from a structured medical dataset.\n\nStack: Python, SentenceTransformer, FAISS, NLP, machine learning.\n\nWhat I built: I developed a medical chatbot using a Kaggle disease and symptom dataset. I used SentenceTransformer to generate semantic representations and FAISS for similarity-based retrieval. The system processes symptom-related queries and retrieves relevant information from the indexed dataset rather than relying only on exact keyword matching.\n\nResult: Functional semantic retrieval prototype developed; no formal diagnostic accuracy benchmark yet.\n\nRelevant for roles in: NLP, retrieval systems, semantic search, machine learning, Python, healthcare AI, vector databases.`\n  },\n\n  {\n    name: \"Drone-based Fire Detection and Extinguishing System\",\n    text: `Project: Drone-based Fire Detection and Extinguishing System\nDomain: computer vision, autonomous drones, robotics, path planning\n\nProblem: Firefighting in hazardous environments can expose people to significant risk. The project explores the use of drones to detect fire and support firefighting operations remotely.\n\nStack: Python, computer vision, LiDAR, D* algorithm, drone systems.\n\nWhat I built: I designed a two-drone concept consisting of a detector drone and a fighter drone. The detector drone is intended to identify fire locations while the fighter drone performs the corresponding firefighting task. I worked with LiDAR-based environmental sensing and D* path planning concepts to support autonomous navigation between relevant locations.\n\nResult: Prototype/project system developed; no benchmark yet.\n\nRelevant for roles in: computer vision, robotics, autonomous systems, drones, path planning, AI, edge computing.`\n  },\n\n  {\n    name: \"Fire Fighting Rover\",\n    text: `Project: Fire Fighting Rover\nDomain: robotics, embedded systems, computer vision, autonomous systems\n\nProblem: Firefighting environments can be dangerous for humans, so a remotely controlled or autonomous rover can be used to approach fire locations and assist with firefighting.\n\nStack: Python, robotics, sensors, computer vision.\n\nWhat I built: I developed a fire-fighting rover concept designed to detect and approach fire while providing a safer mechanism for firefighting operations. The project involved integrating sensing and robotic movement concepts for operation in hazardous environments.\n\nResult: Prototype/project implementation; no formal benchmark yet.\n\nRelevant for roles in: robotics, computer vision, embedded AI, autonomous systems, IoT, machine learning.`\n  },\n\n  {\n    name: \"MNIST Digit Classification\",\n    text: `Project: MNIST Digit Classification\nDomain: deep learning, image classification, neural networks\n\nProblem: Handwritten digit recognition is a standard computer vision problem used to demonstrate development and evaluation of a neural network classifier.\n\nStack: Python, TensorFlow, Keras, deep learning.\n\nWhat I built: I developed and trained a neural network model using the MNIST handwritten digit dataset. The project involved preparing image data, defining the Keras model, training the network and evaluating its classification performance.\n\nResult: Functional MNIST classification model; no benchmark included here.\n\nRelevant for roles in: deep learning, computer vision, TensorFlow, Keras, Python, machine learning engineering.`\n  }\n];\n\nreturn projects.map(p => ({ json: p }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        -208
+      ],
+      "id": "94f629d1-2de1-4435-9baa-2e3448f47caf",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "my-projects",
+          "mode": "list",
+          "cachedResultName": "my-projects"
+        },
+        "options": {
+          "pineconeNamespace": "projects"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        -208
+      ],
+      "id": "b3c103fc-5c5c-4674-9f46-a577c7934713",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "TyUv48LVxJwTz0AY",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        0
+      ],
+      "id": "0dc06c3e-98b1-4648-8d10-90d86e87737b",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "P4IIcA8celNZmk92",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.text }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "project",
+                "value": "={{ $json.name }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        0
+      ],
+      "id": "bf47b73c-a22b-4c02-8989-8c535b59ef3f",
+      "name": "Default Data Loader"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e4fb1d35-b097-4599-95af-55b37de9060f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4c51c0e5e1a8a1245786901d3115a6f85dd6019fc674b2c7d5f2ff9755fdbacb"
+  },
+  "nodeGroups": [],
+  "id": "VMOlhxVHojnAAlD7",
+  "tags": []
+}
